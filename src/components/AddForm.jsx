@@ -1,6 +1,6 @@
 import {useState} from 'react';
 import {db} from '../config/fb-config'
-import {collection, addDoc} from 'firebase/firestore'
+import {collection, addDoc, getDocs} from 'firebase/firestore'
 import {Link, useNavigate} from 'react-router-dom';
 
 let AddForm = ({booksList, setBooksList}) => {
@@ -9,6 +9,11 @@ let AddForm = ({booksList, setBooksList}) => {
     const reset = () => {
       setBookName('')
       setAuthorName('')
+    }
+    const getData =  async () => {
+      const querySnapshot = await getDocs(collection(db, "Books"));
+      console.log(querySnapshot)
+      setBooksList(querySnapshot.docs);
     }
     const navigate = useNavigate();
     const addBook = async e => {
@@ -21,7 +26,7 @@ let AddForm = ({booksList, setBooksList}) => {
             });
             console.log("Document written with ID: ", docRef.id);
             reset();
-            // setBooksList([]);
+            getData();
             navigate('/');
           } catch (e) {
             console.error("Error adding document: ", e);

@@ -11,7 +11,7 @@ let ShowList = ({booksList, setBooksList}) => {
         await deleteDoc(doc(db, "Books", id))
         .then(() => {
             console.log(id);
-            // setBooksList(booksList.filter(i => i._id !== id))
+            setBooksList(booksList.filter(i => i.id !== id))
         })
         .catch(e => console.log(e));
     }
