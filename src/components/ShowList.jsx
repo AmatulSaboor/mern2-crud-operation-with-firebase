@@ -1,13 +1,21 @@
 import { doc, deleteDoc } from "firebase/firestore";
 import {db} from '../config/fb-config'
 import {Link } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore"; 
 
-let ShowList = ({booksList, setBooksList}) => {
-    
+let ShowList = () => {
+    const [booksList, setBooksList] = useState([]);
+  const getData =  async () => {
+    const querySnapshot = await getDocs(collection(db, "Books"));
+    setBooksList(querySnapshot.docs);
+  }
+  useEffect(() => {
+    getData();
+  }, [])
     const handleDelete = async (id) => {
         await deleteDoc(doc(db, "Books", id))
         .then(() => {
-            console.log(id);
             setBooksList(booksList.filter(i => i.id !== id))
         })
         .catch(e => console.log(e));}

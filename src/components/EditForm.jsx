@@ -1,7 +1,7 @@
-import { Link, useParams, useNavigate} from 'react-router-dom';
 import { db } from '../config/fb-config';
-import { doc, getDoc, updateDoc } from "firebase/firestore"; 
 import { useEffect, useState } from 'react';
+import { doc, getDoc, updateDoc } from "firebase/firestore"; 
+import { Link, useParams, useNavigate} from 'react-router-dom';
 
 let UpdateForm = () => {
     const { id } = useParams();
@@ -14,8 +14,6 @@ let UpdateForm = () => {
         } else console.log("No such document!");
     }
     const editBook = async () => {
-        console.log('in edit book');
-        console.log(book);
         try {
             const docRef = doc(db, "Books", id);
             await updateDoc(docRef, {bookname:book.bookname, authorname:book.authorname});

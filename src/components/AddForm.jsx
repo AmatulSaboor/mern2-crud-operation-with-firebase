@@ -1,32 +1,24 @@
 import {useState} from 'react';
 import {db} from '../config/fb-config'
-import {collection, addDoc, getDocs} from 'firebase/firestore'
+import {collection, addDoc} from 'firebase/firestore'
 import {Link, useNavigate} from 'react-router-dom';
 
-let AddForm = ({setBooksList}) => {
+let AddForm = () => {
     const [bookName, setBookName] = useState('');
     const [authorName, setAuthorName] = useState('');
     const reset = () => {
       setBookName('')
       setAuthorName('')
     }
-    const getData =  async () => {
-      const querySnapshot = await getDocs(collection(db, "Books"));
-      console.log(querySnapshot)
-      setBooksList(querySnapshot.docs);
-    }
     const navigate = useNavigate();
     const addBook = async e => {
         e.preventDefault();
-        console.log(bookName, authorName)
         try {
-            const docRef = await addDoc(collection(db, "Books"), {
+            await addDoc(collection(db, "Books"), {
               bookname: bookName,
               authorname: authorName,
             });
-            console.log("Document written with ID: ", docRef.id);
             reset();
-            getData();
             navigate('/');
           } catch (e) {
             console.error("Error adding document: ", e);
