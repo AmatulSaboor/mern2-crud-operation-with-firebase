@@ -5,6 +5,7 @@ import { collection, getDocs } from "firebase/firestore";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ShowList from '../src/components/ShowList';
 import AddForm from './components/AddForm';
+import EditForm from './components/EditForm';
 function App() {
 
   const [booksList, setBooksList] = useState([]);
@@ -23,6 +24,7 @@ function App() {
           <Routes>
             <Route path='/' element={<ShowList booksList={booksList} setBooksList={setBooksList}/>} /> 
             <Route path='/addbook' element={<AddForm booksList={booksList} setBooksList={setBooksList}/>} /> 
+            <Route path='/:id/editbook' element={<EditForm />} /> 
           </Routes>
         </BrowserRouter>
       </header>

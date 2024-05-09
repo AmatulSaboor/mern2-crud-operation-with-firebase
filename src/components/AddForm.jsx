@@ -3,7 +3,7 @@ import {db} from '../config/fb-config'
 import {collection, addDoc, getDocs} from 'firebase/firestore'
 import {Link, useNavigate} from 'react-router-dom';
 
-let AddForm = ({booksList, setBooksList}) => {
+let AddForm = ({setBooksList}) => {
     const [bookName, setBookName] = useState('');
     const [authorName, setAuthorName] = useState('');
     const reset = () => {
